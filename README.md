@@ -40,20 +40,17 @@ tests/
 ## How It Works
 
 ```
-Hotkey / CLI / Launcher
-        ↓
-  Orbit Command
-        ↓
-    Workflow
-        ↓
-    Actions
+Hotkey / CLI
+      ↓
+  Workflow
+      ↓
+  Actions
 ```
 
 - **Workflows** – YAML files composed of sequential action steps (`/workflows`)
 - **Actions** – small reusable units (launch-process, kill-process, wait, type-text, etc.)
 - **Context** – active application, current folder, window title — resolved at runtime by actions
 - **Hotkeys** – invoke workflows directly via global key bindings
-- **Launcher** – `Ctrl+Space` opens a thin command palette (`Orbit >`) over the CLI
 
 ---
 
@@ -104,31 +101,20 @@ hotkeys:
 
 ---
 
-## MVP Milestone
-
-- [ ] Global hotkey registration invoking workflows directly
-- [ ] YAML workflow loading from `/workflows`
-- [ ] Sequential workflow execution with full logging
-- [ ] Core actions: launch-process, kill-process, wait, wait-for-process, timestamp-text, open-gitbash
-- [ ] SQLite persistence (WorkflowRuns, WorkflowStepRuns, CommandHistory)
-- [ ] CLI: `orbit run`, `orbit start`, `orbit stop`, `orbit workflows`, `orbit history`, `orbit status`, `orbit logs`
-- [ ] Launcher: `Ctrl+Space` → `Orbit >` command palette
-
 ## Future
 
 - Plugin system (`/plugins` — load actions from external assemblies)
 - Scheduling (`orbit schedule add dailychecks 08:00`)
 - REST API (`POST /api/workflows/start-dev`)
-- Remote agents
 - AI natural language → workflow mapping
-- Visual workflow designer
+- Command palette (`Ctrl+Space` → `Orbit >`)
 
 ---
 
 ## Tech Stack
 
 - .NET 9 / C#
-- System.CommandLine (CLI)
+- Spectre.Console (CLI output)
 - SQLite + EF Core (Persistence)
 - YamlDotNet (Workflow definitions)
 - Microsoft.Extensions.Logging (Structured logging)
