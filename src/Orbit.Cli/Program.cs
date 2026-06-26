@@ -59,7 +59,7 @@ static int Unknown(string cmd)
 static void PrintHelp()
 {
     AnsiConsole.MarkupLine("[bold cyan]orbit[/] — desktop automation engine\n");
-    AnsiConsole.MarkupLine("[bold]Usage:[/]  orbit <command> [args]\n");
+    AnsiConsole.MarkupLine("[bold]Usage:[/]  orbit <command> [[args]]\n");
 
     var table = new Spectre.Console.Table()
         .HideHeaders()
