@@ -1,0 +1,6 @@
+name: rancher-stop
+description: Stops Rancher Desktop
+
+steps:
+  - action: kill-process
+    process: "Rancher Desktop"

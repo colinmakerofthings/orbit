@@ -1,0 +1,6 @@
+name: insert-build-id
+description: Types a timestamp-based build ID at the cursor position
+
+steps:
+  - action: timestamp-text
+    template: "TEST{HH}{mm}{ss}"

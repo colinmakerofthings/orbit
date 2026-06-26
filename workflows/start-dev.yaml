@@ -1,0 +1,16 @@
+name: start-dev
+description: Starts Rancher Desktop, waits for it to be ready, opens VS Code and Git Bash
+
+steps:
+  - action: launch-process
+    executable: "C:\\Program Files\\Rancher Desktop\\Rancher Desktop.exe"
+
+  - action: wait-for-process
+    process: "Rancher Desktop"
+    timeoutSeconds: 120
+
+  - action: launch-process
+    executable: code.exe
+
+  - action: open-gitbash
+    folder: currentFolder

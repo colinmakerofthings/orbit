@@ -1,0 +1,9 @@
+hotkeys:
+  ctrl+alt+t:
+    workflow: insert-build-id
+
+  ctrl+alt+g:
+    workflow: open-gitbash-here
+
+  ctrl+shift+r:
+    workflow: rancher-start

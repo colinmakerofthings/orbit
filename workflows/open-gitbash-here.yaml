@@ -1,0 +1,6 @@
+name: open-gitbash-here
+description: Opens Git Bash at the current Explorer folder
+
+steps:
+  - action: open-gitbash
+    folder: currentFolder

@@ -1,0 +1,6 @@
+name: rancher-start
+description: Launches Rancher Desktop
+
+steps:
+  - action: launch-process
+    executable: "C:\\Program Files\\Rancher Desktop\\Rancher Desktop.exe"
