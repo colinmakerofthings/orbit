@@ -1,23 +1,34 @@
 # Orbit - Desktop Automation Engine
 
-A personal desktop automation platform for Windows built with C# and .NET 9.
+A CLI-first desktop automation platform for Windows built with C# and .NET 9.
 
-Orbit combines global hotkeys, a command palette, workflow automation, application lifecycle management, execution history, real-time monitoring, and extensible action plugins into a single developer-focused automation engine.
+Orbit is a workflow automation engine — not a macro recorder. It feels like `git`, `docker`, or `kubectl` for desktop automation.
+
+```bash
+orbit run insert-build-id
+orbit start rancher
+orbit stop rancher
+orbit start dev
+orbit workflows
+orbit history
+orbit status
+orbit logs start-dev
+```
 
 ---
 
 ## Solution Structure
 
 ```
-Orbit.sln
+Orbit.slnx
 
 src/
-  Orbit.Engine/          # Worker Service - hotkeys, command/workflow execution, plugin loading
-  Orbit.Core/            # Contracts and shared domain (interfaces, models) - no infra deps
+  Orbit.Core/            # Contracts and shared domain (interfaces, models) — no infra deps
+  Orbit.Engine/          # Workflow execution engine, command dispatcher
+  Orbit.Cli/             # CLI entry point (orbit <command>)
   Orbit.Actions/         # Built-in action implementations
-  Orbit.Infrastructure/  # Windows platform integrations (hotkeys, window detection, keyboard)
+  Orbit.Infrastructure/  # Windows platform (hotkeys, window detection, keyboard input)
   Orbit.Persistence/     # SQLite + EF Core repositories
-  Orbit.Dashboard/       # Blazor Server monitoring dashboard
 
 tests/
   Orbit.UnitTests/
@@ -26,21 +37,32 @@ tests/
 
 ---
 
-## Core Concepts
+## How It Works
 
-- **Commands** – named triggers (via hotkey, palette, dashboard, or API). Reference a workflow.
-- **Workflows** – YAML files composed of sequential action steps.
-- **Actions** – discrete operations (launch process, type text, wait, open browser, etc.)
-- **Context** – active application, current folder, window title — available to actions.
+```
+Hotkey / CLI / Launcher
+        ↓
+  Orbit Command
+        ↓
+    Workflow
+        ↓
+    Actions
+```
+
+- **Workflows** – YAML files composed of sequential action steps (`/workflows`)
+- **Actions** – small reusable units (launch-process, kill-process, wait, type-text, etc.)
+- **Context** – active application, current folder, window title — resolved at runtime by actions
+- **Hotkeys** – invoke workflows directly via global key bindings
+- **Launcher** – `Ctrl+Space` opens a thin command palette (`Orbit >`) over the CLI
 
 ---
 
-## Workflow Definition (YAML)
+## Workflow Format (YAML)
 
 Stored in `/workflows`:
 
 ```yaml
-name: start-dev-environment
+name: start-dev
 steps:
   - action: launch-process
     executable: rancher-desktop.exe
@@ -52,62 +74,53 @@ steps:
     folder: currentFolder
 ```
 
-## Command Definition (YAML)
-
-Stored in `/commands`:
-
-```yaml
-name: start-rancher
-workflow: rancher-start
-```
-
 ## Hotkey Configuration
 
 ```yaml
 hotkeys:
   ctrl+alt+t:
-    command: insert-build-id
+    workflow: insert-build-id
   ctrl+alt+g:
-    command: open-gitbash-here
+    workflow: open-gitbash-here
   ctrl+shift+r:
-    command: start-rancher
+    workflow: rancher-start
 ```
 
 ---
 
 ## Built-in Actions
 
-| Action                | Description                              |
-|-----------------------|------------------------------------------|
-| `launch-process`      | Launch a process by executable           |
-| `kill-process`        | Kill a process by name                   |
-| `wait`                | Sleep for N ms/seconds                   |
-| `wait-for-process`    | Wait until a process is running          |
-| `type-text`           | Inject text via keyboard simulation      |
-| `timestamp-text`      | Type a timestamp-based string            |
-| `open-gitbash`        | Open Git Bash at a folder                |
-| `open-browser`        | Open a URL in the default browser        |
-| `run-powershell`      | Execute a PowerShell script              |
+| Action            | Description                              |
+|-------------------|------------------------------------------|
+| `launch-process`  | Launch a process by executable           |
+| `kill-process`    | Kill a process by name                   |
+| `wait`            | Sleep for N ms/seconds                   |
+| `wait-for-process`| Wait until a process is running          |
+| `type-text`       | Inject text via keyboard simulation      |
+| `timestamp-text`  | Type a timestamp-based string            |
+| `open-gitbash`    | Open Git Bash at a folder                |
+| `open-browser`    | Open a URL in the default browser        |
+| `run-powershell`  | Execute a PowerShell script              |
 
 ---
 
 ## MVP Milestone
 
-- [ ] Global hotkey registration and command dispatch
-- [ ] YAML workflow + command loading
-- [ ] Sequential workflow execution with logging
-- [ ] Core actions: launch-process, kill-process, wait, timestamp-text, open-gitbash
-- [ ] SQLite persistence (WorkflowRuns, StepRuns, Commands, Workflows)
-- [ ] Blazor Dashboard: home, workflow history, command library
+- [ ] Global hotkey registration invoking workflows directly
+- [ ] YAML workflow loading from `/workflows`
+- [ ] Sequential workflow execution with full logging
+- [ ] Core actions: launch-process, kill-process, wait, wait-for-process, timestamp-text, open-gitbash
+- [ ] SQLite persistence (WorkflowRuns, WorkflowStepRuns, CommandHistory)
+- [ ] CLI: `orbit run`, `orbit start`, `orbit stop`, `orbit workflows`, `orbit history`, `orbit status`, `orbit logs`
+- [ ] Launcher: `Ctrl+Space` → `Orbit >` command palette
 
-## Future Enhancements
+## Future
 
-- Command Palette (Avalonia UI, `Ctrl+Shift+Space`)
-- Plugin system (load custom actions from assemblies)
-- Workflow scheduling (daily, hourly, cron)
-- REST API (`POST /api/commands/{name}`)
-- Remote agents (execute on multiple machines)
-- AI integration (natural language → command)
+- Plugin system (`/plugins` — load actions from external assemblies)
+- Scheduling (`orbit schedule add dailychecks 08:00`)
+- REST API (`POST /api/workflows/start-dev`)
+- Remote agents
+- AI natural language → workflow mapping
 - Visual workflow designer
 
 ---
@@ -115,7 +128,8 @@ hotkeys:
 ## Tech Stack
 
 - .NET 9 / C#
-- Blazor Server (Dashboard)
+- System.CommandLine (CLI)
 - SQLite + EF Core (Persistence)
 - YamlDotNet (Workflow definitions)
 - Microsoft.Extensions.Logging (Structured logging)
+- Microsoft.Extensions.DependencyInjection
