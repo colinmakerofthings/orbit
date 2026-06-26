@@ -71,7 +71,9 @@ public class TypeTextAction : IAction
         public InputUnion u;
     }
 
-    [StructLayout(LayoutKind.Explicit)]
+    // Size must be 32 to match Windows' INPUT union (largest member is MOUSEINPUT = 32 bytes on 64-bit)
+    // so that Marshal.SizeOf<INPUT>() == 40, matching what SendInput expects as cbSize.
+    [StructLayout(LayoutKind.Explicit, Size = 32)]
     private struct InputUnion
     {
         [FieldOffset(0)] public KEYBDINPUT ki;
