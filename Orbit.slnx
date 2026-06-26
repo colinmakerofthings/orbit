@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Orbit.Actions/Orbit.Actions.csproj" />
+    <Project Path="src/Orbit.Core/Orbit.Core.csproj" />
+    <Project Path="src/Orbit.Dashboard/Orbit.Dashboard.csproj" />
+    <Project Path="src/Orbit.Engine/Orbit.Engine.csproj" />
+    <Project Path="src/Orbit.Infrastructure/Orbit.Infrastructure.csproj" />
+    <Project Path="src/Orbit.Persistence/Orbit.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Orbit.IntegrationTests/Orbit.IntegrationTests.csproj" />
+    <Project Path="tests/Orbit.UnitTests/Orbit.UnitTests.csproj" />
+  </Folder>
+</Solution>

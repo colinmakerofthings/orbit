@@ -1,0 +1,25 @@
+# Example Orbit configuration
+groups:
+# Orbit config for STARS Enterprise automation
+
+repos:
+  stars_enterprise: C:/Dev/enterprise-OpsLocalDevelopment
+  vtrs: C:/Dev/solutions-vets-testrequest/helm
+  # Add more repo paths as needed
+
+solutions:
+  stars_enterprise:
+    enabled: true
+    deploy_script: deploy.sh
+    wait_for_pods: true
+  sdm:
+    enabled: true
+    auto_discover_package: true
+    package_glob: "*.nupkg"
+    package_dir: "{stars_enterprise}/Resources/SDM"
+    install_command: "data-uploader package upload -v -a -i '{package_path}' -h https://se-dev-vm.local/ -u Administrator -p Administrator"
+  vtrs:
+    enabled: true
+    deploy_script: deploy-dev.sh
+    repo: vtrs
+    wait_for_pods: true

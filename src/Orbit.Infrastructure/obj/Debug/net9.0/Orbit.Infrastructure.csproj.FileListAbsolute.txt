@@ -1,0 +1,15 @@
+C:\Dev\orbit\src\Orbit.Infrastructure\bin\Debug\net9.0\Orbit.Infrastructure.deps.json
+C:\Dev\orbit\src\Orbit.Infrastructure\bin\Debug\net9.0\Orbit.Infrastructure.dll
+C:\Dev\orbit\src\Orbit.Infrastructure\bin\Debug\net9.0\Orbit.Infrastructure.pdb
+C:\Dev\orbit\src\Orbit.Infrastructure\bin\Debug\net9.0\Orbit.Core.dll
+C:\Dev\orbit\src\Orbit.Infrastructure\bin\Debug\net9.0\Orbit.Core.pdb
+C:\Dev\orbit\src\Orbit.Infrastructure\obj\Debug\net9.0\Orbit.Infrastructure.csproj.AssemblyReference.cache
+C:\Dev\orbit\src\Orbit.Infrastructure\obj\Debug\net9.0\Orbit.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Dev\orbit\src\Orbit.Infrastructure\obj\Debug\net9.0\Orbit.Infrastructure.AssemblyInfoInputs.cache
+C:\Dev\orbit\src\Orbit.Infrastructure\obj\Debug\net9.0\Orbit.Infrastructure.AssemblyInfo.cs
+C:\Dev\orbit\src\Orbit.Infrastructure\obj\Debug\net9.0\Orbit.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Dev\orbit\src\Orbit.Infrastructure\obj\Debug\net9.0\Orbit.In.E1643408.Up2Date
+C:\Dev\orbit\src\Orbit.Infrastructure\obj\Debug\net9.0\Orbit.Infrastructure.dll
+C:\Dev\orbit\src\Orbit.Infrastructure\obj\Debug\net9.0\refint\Orbit.Infrastructure.dll
+C:\Dev\orbit\src\Orbit.Infrastructure\obj\Debug\net9.0\Orbit.Infrastructure.pdb
+C:\Dev\orbit\src\Orbit.Infrastructure\obj\Debug\net9.0\ref\Orbit.Infrastructure.dll

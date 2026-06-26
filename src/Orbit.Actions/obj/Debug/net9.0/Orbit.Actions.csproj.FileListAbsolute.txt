@@ -1,0 +1,15 @@
+C:\Dev\orbit\src\Orbit.Actions\bin\Debug\net9.0\Orbit.Actions.deps.json
+C:\Dev\orbit\src\Orbit.Actions\bin\Debug\net9.0\Orbit.Actions.dll
+C:\Dev\orbit\src\Orbit.Actions\bin\Debug\net9.0\Orbit.Actions.pdb
+C:\Dev\orbit\src\Orbit.Actions\bin\Debug\net9.0\Orbit.Core.dll
+C:\Dev\orbit\src\Orbit.Actions\bin\Debug\net9.0\Orbit.Core.pdb
+C:\Dev\orbit\src\Orbit.Actions\obj\Debug\net9.0\Orbit.Actions.csproj.AssemblyReference.cache
+C:\Dev\orbit\src\Orbit.Actions\obj\Debug\net9.0\Orbit.Actions.GeneratedMSBuildEditorConfig.editorconfig
+C:\Dev\orbit\src\Orbit.Actions\obj\Debug\net9.0\Orbit.Actions.AssemblyInfoInputs.cache
+C:\Dev\orbit\src\Orbit.Actions\obj\Debug\net9.0\Orbit.Actions.AssemblyInfo.cs
+C:\Dev\orbit\src\Orbit.Actions\obj\Debug\net9.0\Orbit.Actions.csproj.CoreCompileInputs.cache
+C:\Dev\orbit\src\Orbit.Actions\obj\Debug\net9.0\Orbit.Ac.8CE68369.Up2Date
+C:\Dev\orbit\src\Orbit.Actions\obj\Debug\net9.0\Orbit.Actions.dll
+C:\Dev\orbit\src\Orbit.Actions\obj\Debug\net9.0\refint\Orbit.Actions.dll
+C:\Dev\orbit\src\Orbit.Actions\obj\Debug\net9.0\Orbit.Actions.pdb
+C:\Dev\orbit\src\Orbit.Actions\obj\Debug\net9.0\ref\Orbit.Actions.dll
