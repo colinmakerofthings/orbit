@@ -1,4 +1,5 @@
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using Orbit.Core.Contracts;
@@ -162,12 +163,20 @@ public class WorkflowEngineTests : IDisposable
         engine.GetActiveRuns().Should().BeEmpty();
     }
 
-    private WorkflowEngine BuildEngine(IAction[] actions) => new(
-        new WorkflowLoader(_tempDir),
-        actions,
-        _repoMock.Object,
-        _contextMock.Object,
-        NullLogger<WorkflowEngine>.Instance);
+    private WorkflowEngine BuildEngine(IAction[] actions)
+    {
+        var services = new ServiceCollection();
+        services.AddScoped<IWorkflowRepository>(_ => _repoMock.Object);
+        var provider = services.BuildServiceProvider();
+        var scopeFactory = provider.GetRequiredService<IServiceScopeFactory>();
+
+        return new WorkflowEngine(
+            new WorkflowLoader(_tempDir),
+            actions,
+            scopeFactory,
+            _contextMock.Object,
+            NullLogger<WorkflowEngine>.Instance);
+    }
 
     private static IAction MakeAction(string name, ActionResult result)
     {

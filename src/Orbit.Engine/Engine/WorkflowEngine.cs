@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Orbit.Core.Contracts;
 using Orbit.Core.Models;
@@ -7,7 +8,7 @@ namespace Orbit.Engine.Engine;
 public class WorkflowEngine(
     WorkflowLoader loader,
     IEnumerable<IAction> actions,
-    IWorkflowRepository repository,
+    IServiceScopeFactory scopeFactory,
     IContextProvider contextProvider,
     ILogger<WorkflowEngine> logger) : IWorkflowEngine
 {
@@ -20,6 +21,10 @@ public class WorkflowEngine(
     {
         var workflow = loader.Load(workflowName)
             ?? throw new InvalidOperationException($"Workflow not found: '{workflowName}'");
+
+        // Create a DI scope for this run so the scoped IWorkflowRepository (DbContext) is properly managed
+        await using var scope = scopeFactory.CreateAsyncScope();
+        var repository = scope.ServiceProvider.GetRequiredService<IWorkflowRepository>();
 
         var run = new WorkflowRun
         {
