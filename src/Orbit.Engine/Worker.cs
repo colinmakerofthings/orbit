@@ -1,23 +1,28 @@
+using Orbit.Core.Contracts;
+
 namespace Orbit.Engine;
 
-public class Worker : BackgroundService
+/// <summary>
+/// Main background service. Starts the hotkey listener and keeps the engine alive.
+/// </summary>
+public class Worker(
+    IHotkeyService hotkeyService,
+    ILogger<Worker> logger) : BackgroundService
 {
-    private readonly ILogger<Worker> _logger;
-
-    public Worker(ILogger<Worker> logger)
+    protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger = logger;
-    }
+        logger.LogInformation("Orbit Engine started");
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        while (!stoppingToken.IsCancellationRequested)
+        hotkeyService.Start();
+
+        stoppingToken.Register(() =>
         {
-            if (_logger.IsEnabled(LogLevel.Information))
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            }
-            await Task.Delay(1000, stoppingToken);
-        }
+            logger.LogInformation("Orbit Engine stopping");
+            hotkeyService.Stop();
+        });
+
+        // Keep alive — hotkey service runs its own message loop thread
+        return Task.Delay(Timeout.Infinite, stoppingToken)
+            .ContinueWith(_ => { }, TaskContinuationOptions.None);
     }
 }
